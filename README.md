@@ -19,9 +19,9 @@ Nach Auswahl des Reisezieles soll automatisch der Preis/Person/Tag und bei Anwah
 
 Es gilt folgende Rabattstaffel:
 
-Reisepreis >400.- €    3 %
-Reisepreis >600.- €    5 %
-Reisepreis >800.- €    7 %
-Reisepreis >1000.- €  9 %
+Reisepreis >400.-€ -> 3 %
+Reisepreis >600.-€ -> 5 %
+Reisepreis >800.-€ -> 7 %
+Reisepreis >1000.-€ -> 9 %
 
 Achtung: Eingabefehler sind abzufangen!

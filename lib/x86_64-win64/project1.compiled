@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Compiler Value="D:\Programme\lazarus\fpc\3.2.0\bin\x86_64-win64\fpc.exe" Date="1357348719"/>
+  <Params Value=" -MObjFPC -Scghi -O1 -g -gl -WG -l -vewnhibq -FiC:\programmieren-lazarus\11.ISys-Reiseangebot\lib\x86_64-win64 -FuD:\Programme\lazarus\lcl\units\x86_64-win64\win32 -FuD:\Programme\lazarus\lcl\units\x86_64-win64 -FuD:\Programme\lazarus\components\lazutils\lib\x86_64-win64 -FuD:\Programme\lazarus\packager\units\x86_64-win64 -FuC:\programmieren-lazarus\11.ISys-Reiseangebot\ -FUC:\programmieren-lazarus\11.ISys-Reiseangebot\lib\x86_64-win64\ -FEC:\programmieren-lazarus\11.ISys-Reiseangebot\ -oC:\programmieren-lazarus\11.ISys-Reiseangebot\project1.exe -dLCL -dLCLwin32 project1.lpr"/>
+</CONFIG>

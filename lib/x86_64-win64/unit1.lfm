@@ -51,6 +51,7 @@ object Form1: TForm1
     EditLabel.ParentColor = False
     Enabled = False
     TabOrder = 2
+    Text = '1'
   end
   object editDays: TLabeledEdit
     Left = 272
@@ -63,6 +64,7 @@ object Form1: TForm1
     EditLabel.ParentColor = False
     Enabled = False
     TabOrder = 3
+    Text = '1'
   end
   object checkBox: TCheckBox
     Left = 136
@@ -153,5 +155,14 @@ object Form1: TForm1
     Font.Quality = fqDraft
     ParentColor = False
     ParentFont = False
+  end
+  object buttonClear: TButton
+    Left = 296
+    Height = 25
+    Top = 208
+    Width = 35
+    Caption = 'clear'
+    OnClick = buttonClearClick
+    TabOrder = 10
   end
 end

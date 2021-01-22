@@ -13,6 +13,7 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    buttonClear: TButton;
     buttonCalc: TButton;
     checkBox: TCheckBox;
     comboBox: TComboBox;
@@ -25,6 +26,7 @@ type
     editDiscount: TLabeledEdit;
     editPriceE: TLabeledEdit;
     procedure buttonCalcClick(Sender: TObject);
+    procedure buttonClearClick(Sender: TObject);
     procedure checkBoxChange(Sender: TObject);
     procedure comboBoxChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -67,11 +69,20 @@ begin
 
   checkBox.Checked := False;
   editECharge.Text := '-';
-  editPersons.Text := '';
-  editDays.Text := '';
+
+  editPersons.Text := '1';
+  editDays.Text := '1';
+
+  editPriceN.Text := '-';
+  editPriceE.Text := '-';
+  editDiscount.Text := '-';
 end;
 
 procedure TForm1.checkBoxChange(Sender: TObject);
+var
+  price, eCharge, priceN, discount: currency;
+  persons, days: integer;
+  discountBool: boolean;
 begin
 
   case checkBox.Checked of
@@ -89,24 +100,19 @@ begin
     False: editECharge.Text := '-';
   end;
 
-end;
-
-procedure TForm1.buttonCalcClick(Sender: TObject);
-var
-  price, eCharge, priceN, discount: currency;
-  persons, days: integer;
-  discountBool: boolean;
-begin
+  // recalc priceE
   price := StrToCurr(StringReplace(editPrice.Text, '.-€', '', [rfReplaceAll]));
-  persons := 0;
-  days := 0;
+  editDiscount.Text := '-';
 
   if (checkBox.Checked) then
-    eCharge := StrToCurr(StringReplace(editECharge.Text, '.-€', '', [rfReplaceAll]));
+    eCharge := StrToCurr(StringReplace(editECharge.Text, '.-€',
+      '', [rfReplaceAll]));
 
   try
     persons := StrToInt(editPersons.Text);
   except
+    persons := 1;
+    editPersons.Text := '1';
     labelError.Caption := 'Invalid datatype at "Personen". | ' + TimeToStr(Time());
     editPersons.Clear;
     editPriceN.Text := '-';
@@ -117,6 +123,8 @@ begin
   try
     days := StrToInt(editDays.Text);
   except
+    days := 1;
+    editDays.Text := '1';
     labelError.Caption := 'Invalid datatype at "Tage". | ' + TimeToStr(Time());
     editDays.Clear;
     editPriceN.Text := '-';
@@ -170,6 +178,102 @@ begin
     editPriceE.Text := FloatToStr(priceN - discount) + '.-€'
   else
     editPriceE.Text := FloatToStr(priceN) + '.-€';
+end;
+
+procedure TForm1.buttonCalcClick(Sender: TObject);
+var
+  price, eCharge, priceN, discount: currency;
+  persons, days: integer;
+  discountBool: boolean;
+begin
+  price := StrToCurr(StringReplace(editPrice.Text, '.-€', '', [rfReplaceAll]));
+  editDiscount.Text := '-';
+
+  if (checkBox.Checked) then
+    eCharge := StrToCurr(StringReplace(editECharge.Text, '.-€', '', [rfReplaceAll]));
+
+  try
+    persons := StrToInt(editPersons.Text);
+  except
+    persons := 1;
+    editPersons.Text := '1';
+    labelError.Caption := 'Invalid datatype at "Personen". | ' + TimeToStr(Time());
+    editPersons.Clear;
+    editPriceN.Text := '-';
+    editDiscount.Text := '-';
+    editPriceE.Text := '-';
+  end;
+
+  try
+    days := StrToInt(editDays.Text);
+  except
+    days := 1;
+    editDays.Text := '1';
+    labelError.Caption := 'Invalid datatype at "Tage". | ' + TimeToStr(Time());
+    editDays.Clear;
+    editPriceN.Text := '-';
+    editDiscount.Text := '-';
+    editPriceE.Text := '-';
+  end;
+
+
+  // calc Netto
+  if (checkBox.Checked) then
+  begin
+    priceN := (price + eCharge) * (persons * days);
+    editPriceN.Text := floatToStr(priceN) + '.-€';
+  end
+  else
+  begin
+    priceN := price * (persons * days);
+    editPriceN.Text := FloatToStr(priceN) + '.-€';
+  end;
+
+
+  // calc Rabatt
+  if (priceN >= 400) then
+  begin
+    discount := 3 * (priceN / 100);
+    discountBool := True;
+    editDiscount.Text := floatToStr(discount) + '.-€';
+  end
+  else if (priceN >= 600) then
+  begin
+    discount := 5 * (priceN / 100);
+    discountBool := True;
+    editDiscount.Text := floatToStr(discount) + '.-€';
+  end
+  else if (priceN >= 800) then
+  begin
+    discount := 7 * (priceN / 100);
+    discountBool := True;
+    editDiscount.Text := floatToStr(discount) + '.-€';
+  end
+  else if (priceN >= 1000) then
+  begin
+    discount := 9 * (priceN / 100);
+    discountBool := True;
+    editDiscount.Text := floatToStr(discount) + '.-€';
+  end;
+
+
+  // calc Endpreis
+  if (discountBool) then
+    editPriceE.Text := FloatToStr(priceN - discount) + '.-€'
+  else
+    editPriceE.Text := FloatToStr(priceN) + '.-€';
+end;
+
+procedure TForm1.buttonClearClick(Sender: TObject);
+begin
+
+  checkBox.Checked := False;
+  editECharge.Text := '-';
+  editPersons.Text := '1';
+  editDays.Text := '1';
+  editPriceN.Text := '-';
+  editDiscount.Text := '-';
+  editPriceE.Text := '-';
 end;
 
 end.

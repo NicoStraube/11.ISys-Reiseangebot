@@ -266,7 +266,7 @@ end;
 
 procedure TForm1.buttonClearClick(Sender: TObject);
 begin
-
+  // reset everything to defaults
   checkBox.Checked := False;
   editECharge.Text := '-';
   editPersons.Text := '1';
